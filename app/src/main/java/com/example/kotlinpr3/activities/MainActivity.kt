@@ -14,5 +14,6 @@ class MainActivity : AppCompatActivity() {
         val bottonNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val navController =Navigation.findNavController(this, R.id.frag_host)
         NavigationUI.setupWithNavController(bottonNavigation,navController)
+        print("Its my test_branch")
     }
 }
