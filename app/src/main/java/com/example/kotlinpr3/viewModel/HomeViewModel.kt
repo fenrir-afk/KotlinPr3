@@ -1,31 +1,25 @@
 package com.example.kotlinpr3.viewModel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.kotlinpr3.model.Meal
 import com.example.kotlinpr3.model.MealList
-import com.example.kotlinpr3.model.MealSimple
-import com.example.kotlinpr3.retrofit.RetrofitInstance
-import com.example.kotlinpr3.room.MealDatabase
-import com.example.kotlinpr3.room.MealRepository
-import kotlinx.coroutines.launch
+import com.example.kotlinpr3.retrofit.MealApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 
-
-
-
-
-class HomeViewModel:ViewModel() {
-    private var randomMealLivedata = MutableLiveData<Meal>()
+class HomeViewModel @Inject constructor() :ViewModel() {
+    @Inject
+    lateinit var randomMealLivedata:MutableLiveData<Meal>
+    @Inject
+    lateinit var retrofit:MealApi
     fun getRandomMeal(){
-        RetrofitInstance.foodApi.getRandomMeal().enqueue(object : Callback<MealList> {
+        retrofit.getRandomMeal().enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.body() != null){//!! - NotNUll
                     val randomMeal: Meal = response.body()!!.meals[0]

@@ -2,23 +2,26 @@ package com.example.kotlinpr3.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.example.kotlinpr3.Application.MyApplication
 import com.example.kotlinpr3.activities.MealActivity
 import com.example.kotlinpr3.databinding.FragmentHomeBinding
 import com.example.kotlinpr3.model.Meal
 import com.example.kotlinpr3.viewModel.HomeViewModel
+import javax.inject.Inject
 
 
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var homeMvvm: HomeViewModel
-    private lateinit var randomMeal:Meal
+    lateinit var binding: FragmentHomeBinding
+
+    @Inject
+    lateinit var homeMvvm: HomeViewModel
+    lateinit var randomMeal:Meal
 
     companion object{
         val MEAL_ID = "com.example.kotlinpr3.ui.idMeal"
@@ -27,6 +30,7 @@ class HomeFragment : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MyApplication.appComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -39,7 +43,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeMvvm = HomeViewModel()
         homeMvvm.getRandomMeal()
         observeRandomMeal()
         onRandomMealClick()

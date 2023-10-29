@@ -6,15 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kotlinpr3.model.Meal
 import com.example.kotlinpr3.model.MealList
-import com.example.kotlinpr3.retrofit.RetrofitInstance
+import com.example.kotlinpr3.retrofit.MealApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MealViewModel: ViewModel() {
-    private var  mealDetailListLiveData = MutableLiveData<Meal>()
+class MealViewModel @Inject constructor() : ViewModel() {
+    @Inject
+    lateinit var  mealDetailListLiveData:MutableLiveData<Meal>
+    @Inject
+    lateinit var retrofit: MealApi
     fun getMealDetail(id:String){
-        RetrofitInstance.foodApi.getMealDetails(id).enqueue(object : Callback<MealList>{
+        retrofit.getMealDetails(id).enqueue(object : Callback<MealList>{
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.body() != null){
                     mealDetailListLiveData.value = response.body()!!.meals[0]

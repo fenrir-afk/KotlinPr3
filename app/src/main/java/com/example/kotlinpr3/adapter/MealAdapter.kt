@@ -3,14 +3,14 @@ package com.example.kotlinpr3.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinpr3.R
 import com.example.kotlinpr3.model.MealSimple
+import javax.inject.Inject
 
 
-class MealAdapter: RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
+class MealAdapter @Inject constructor(): RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
     class MealViewHolder(view: View): RecyclerView.ViewHolder(view){
         var name:TextView = itemView.findViewById(R.id.name)
         var description:TextView = itemView.findViewById(R.id.description)

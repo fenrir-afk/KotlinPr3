@@ -1,28 +1,31 @@
 package com.example.kotlinpr3.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.example.kotlinpr3.Application.MyApplication
 import com.example.kotlinpr3.R
 import com.example.kotlinpr3.databinding.ActivityMealBinding
 import com.example.kotlinpr3.model.Meal
 import com.example.kotlinpr3.ui.HomeFragment
 import com.example.kotlinpr3.viewModel.MealViewModel
+import javax.inject.Inject
 
 class MealActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMealBinding
     private lateinit var meadId:String
     private lateinit var meadName:String
     private lateinit var meadThumb:String
-    private lateinit var  mealMvvm:MealViewModel
+    @Inject
+    lateinit var  mealMvvm:MealViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        mealMvvm = ViewModelProviders.of(this)[MealViewModel::class.java]
+        //inject mealmvvm
+        MyApplication.appComponent.inject(this)
+        //
         getMealInfo()
         setInfo()
         mealMvvm.getMealDetail(meadId)

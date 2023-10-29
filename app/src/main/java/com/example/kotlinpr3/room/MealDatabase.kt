@@ -3,14 +3,15 @@ package com.example.kotlinpr3.room
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
-import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
 import com.example.kotlinpr3.model.MealSimple
 
 @Database(entities = [MealSimple::class], version = 1)
-abstract class MealDatabase : RoomDatabase() {
+abstract class MealDatabase(): RoomDatabase() {
     abstract fun mealDao(): MealDao
-   companion object{
+
+
+    companion object{
        @Volatile
        var INSTANCE: MealDatabase? = null
        @Synchronized
